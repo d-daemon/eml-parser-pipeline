@@ -1,0 +1,14 @@
+# requirements.in
+# Core ETL dependencies
+pandas
+sqlalchemy
+pytz
+beautifulsoup4
+
+# Optional utilities
+jupyter
+ipykernel
+
+# Dev / linting (optional)
+ruff
+black

@@ -1,0 +1,7 @@
+[project]
+name = "eml-parser-pipeline"
+version = "0.1.0"
+description = "APython ETL that extracts message and attachment content from .eml files. Transforms, validates, and loads into CSV and SQLite with complete batch tracking."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
