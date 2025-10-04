@@ -13,6 +13,7 @@ Steps:
 
 import argparse
 from datetime import datetime
+from etl.core.context import ETLContext
 from etl.core.logger import setup_logger, get_logger
 from etl.transform.processor import process_files_parallel, merge_messages_with_attachments
 from etl.transform.enrichments import enrich_messages, enrich_attachments
@@ -32,13 +33,14 @@ def run_pipeline(input_dir: str, output_dir: str, max_workers: int = settings.MA
     """
     Run the full ETL pipeline.
     """
-    logger.info("Starting ETL pipeline...")
+    ctx = ETLContext.from_args(input_dir, output_dir)
+    logger.info(f"Starting ETL pipeline in {ctx.output_dir}...")
     start_time = datetime.now()
 
     # --------------------------------------------------------------
     # Extract
     # --------------------------------------------------------------
-    messages_df, attachments_df, file_count = process_files_parallel(input_dir, max_workers=max_workers)
+    messages_df, attachments_df, file_count = process_files_parallel(ctx.input_dir, max_workers=max_workers)
     logger.info(f"Extracted data from {file_count} files")
 
     # --------------------------------------------------------------
@@ -63,17 +65,17 @@ def run_pipeline(input_dir: str, output_dir: str, max_workers: int = settings.MA
     # --------------------------------------------------------------
     # Load
     # --------------------------------------------------------------
-    storage = Storage(output_dir)
+    storage = Storage(ctx)
 
     # Messages
-    msg_batch = BatchControl("messages_load")
+    msg_batch = BatchControl("messages_load", ctx)
     msg_batch.start(rows_expected=len(messages_df))
     storage.write_csv(messages_df, "messages")
     storage.write_sqlite(messages_df, "messages")
     msg_batch.end(rows_loaded=len(messages_df))
 
     # Attachments
-    att_batch = BatchControl("attachments_load")
+    att_batch = BatchControl("attachments_load", ctx)
     att_batch.start(rows_expected=len(attachments_df))
     storage.write_csv(attachments_df, "attachments")
     storage.write_sqlite(attachments_df, "attachments")

@@ -41,7 +41,7 @@ def generate_eml(output_dir: str, count: int = 5):
         # ------------------------------------------------------------------
         sender_name, sender_email = SPEAKERS[i % len(SPEAKERS)]
         recipient_name, recipient_email = SPEAKERS[(i + 1) % len(SPEAKERS)]
-        timestamp = datetime.utcnow() - timedelta(days=i * 3)
+        timestamp = datetime.now() - timedelta(days=i * 3)
         message_id = f"<{uuid.uuid4()}@example.com>"
 
         # Create base multipart email

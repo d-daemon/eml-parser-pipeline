@@ -15,13 +15,14 @@ from config import settings
 logger = get_logger(__name__)
 
 class BatchControl:
-    def __init__(self, batch_name: str):
+    def __init__(self, batch_name: str, ctx):
         self.batch_name = batch_name
         self.start_time = None
         self.end_time = None
         self.rows_expected = None
         self.rows_loaded = None
         self.status = None
+        self.ctx = ctx
 
     # --------------------------------------------------------------
     # Control flow
@@ -63,15 +64,15 @@ class BatchControl:
 
         df = pd.DataFrame([record])
         output_dir = settings.LOCAL_OUTPUT_DIR
-        os.makedirs(output_dir, exist_ok=True)
+        os.makedirs(self.ctx.output_dir, exist_ok=True)
 
         # --- Write to CSV (append mode)
-        csv_path = os.path.join(output_dir, "batch_control.csv")
+        csv_path = os.path.join(self.ctx.output_dir, "batch_control.csv")
         header = not os.path.exists(csv_path)
         df.to_csv(csv_path, mode="a", header=header, index=False)
 
         # --- Write to SQLite
-        engine = create_engine(f"sqlite:///{os.path.join(output_dir, 'etl_demo.db')}")
+        engine = create_engine(f"sqlite:///{os.path.join(self.ctx.output_dir, 'etl_demo.db')}")
         with engine.connect() as conn:
             df.to_sql("batch_control", conn, if_exists="append", index=False)
 

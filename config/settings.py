@@ -17,7 +17,7 @@ ENV = os.getenv("ETL_ENV", "LOCAL")  # LOCAL | CLOUD
 LOCAL_DATA_DIR = "data/"
 LOCAL_INPUT_DIR = os.path.join(LOCAL_DATA_DIR, "input")
 LOCAL_OUTPUT_DIR = os.path.join(LOCAL_DATA_DIR, "output")
-LOCAL_DB_PATH = os.path.join(LOCAL_OUTPUT_DIR, "etl_demo.db")
+LOCAL_DB_PATH = os.path.join(LOCAL_DATA_DIR, "etl_demo.db")
 SQLITE_CONN = f"sqlite:///{LOCAL_DB_PATH}"
 
 # --------------------------------------------------------------------

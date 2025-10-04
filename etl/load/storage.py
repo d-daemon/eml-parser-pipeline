@@ -17,10 +17,8 @@ logger = get_logger(__name__)
 
 
 class Storage:
-    def __init__(self, output_dir: str = settings.LOCAL_OUTPUT_DIR):
-        self.output_dir = output_dir
-        os.makedirs(self.output_dir, exist_ok=True)
-        self.sqlite_conn = settings.SQLITE_CONN
+    def __init__(self, ctx):
+        self.ctx = ctx
 
     # ------------------------------------------------------------------
     # CSV
@@ -31,7 +29,7 @@ class Storage:
             logger.warning(f"No data to write for {name}. Skipping CSV export.")
             return
 
-        file_path = os.path.join(self.output_dir, f"{name}.csv")
+        file_path = os.path.join(self.ctx.output_dir, f"{name}.csv")
         df.to_csv(file_path, index=False, encoding="utf-8-sig")
         logger.info(f"Saved {len(df)} rows to CSV: {file_path}")
 
@@ -44,7 +42,8 @@ class Storage:
             logger.warning(f"No data to write for {table}. Skipping SQLite export.")
             return
 
-        engine = create_engine(self.sqlite_conn)
+        # engine = create_engine(self.sqlite_conn)
+        engine = create_engine(f"sqlite:///{self.ctx.db_path}")
         df.to_sql(table, engine, if_exists="append", index=False)
         logger.info(f"Appended {len(df)} rows into SQLite table: {table}")
 
