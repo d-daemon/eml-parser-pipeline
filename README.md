@@ -1,9 +1,10 @@
 # Email Parser ETL Pipeline
 
-![Python](https://img.shields.io/badge/python-3.13+-blue.svg)
+![Python](https://img.shields.io/badge/python-3.11%20|%203.12%20|%203.13-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Dependencies](https://img.shields.io/badge/dependencies-UV-orange.svg)
 ![SQLite](https://img.shields.io/badge/database-SQLite-blue.svg)
+[![Build Status](https://github.com/d-daemon/eml-parser-pipeline/actions/workflows/python-package.yml/badge.svg)](https://github.com/d-daemon/eml-parser-pipeline/actions)
 ![GitHub last commit](https://img.shields.io/github/last-commit/d-daemon/eml-parser-pipeline)
 ![GitHub repo size](https://img.shields.io/github/repo-size/d-daemon/eml-parser-pipeline)
 ![GitHub stars](https://img.shields.io/github/stars/d-daemon/eml-parser-pipeline?style=social)
@@ -41,6 +42,7 @@ eml-parser-pipeline/
 │   ├── load/            # Storage, batch control, and SQLite handling
 │   └── main.py          # Orchestrator
 ├── examples/            # Sample email generator
+├── tests/               # Unit tests
 ├── demo_notebook.ipynb  # Demo notebook
 ├── main.py              # Orchestrates full ETL pipeline
 ├── requirements.in      # Base dependencies (UV-managed)
@@ -113,7 +115,6 @@ flowchart LR
 
 - Swap SQLite with BigQuery or PostgreSQL
 - Swap local CSV with GCS or S3
-- Swap sequential processing with concurrent futures for asynchronous parallel processing.
 
 ---
 
