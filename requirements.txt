@@ -55,7 +55,7 @@ fastjsonschema==2.21.2
     # via nbformat
 fqdn==1.5.1
     # via jsonschema
-greenlet==3.3.0
+greenlet==3.3.1
     # via sqlalchemy
 h11==0.16.0
     # via httpcore
@@ -166,7 +166,7 @@ mypy-extensions==1.1.0
     # via black
 nbclient==0.10.2
     # via nbconvert
-nbconvert==7.16.6
+nbconvert==7.17.0
     # via
     #   jupyter
     #   jupyter-server
