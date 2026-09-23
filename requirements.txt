@@ -24,7 +24,7 @@ beautifulsoup4==4.14.2
     # via
     #   -r requirements.in
     #   nbconvert
-black==25.9.0
+black==26.3.1
     # via -r requirements.in
 bleach==6.2.0
     # via nbconvert
@@ -200,7 +200,7 @@ pandocfilters==1.5.1
     # via nbconvert
 parso==0.8.5
     # via jedi
-pathspec==0.12.1
+pathspec==1.1.1
     # via black
 pexpect==4.9.0
     # via ipython
@@ -237,7 +237,7 @@ python-dateutil==2.9.0.post0
     #   pandas
 python-json-logger==3.3.0
     # via jupyter-events
-pytokens==0.1.10
+pytokens==0.4.1
     # via black
 pytz==2025.2
     # via
